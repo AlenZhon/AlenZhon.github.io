@@ -20,29 +20,33 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="All work and no play makes Jack a dull boy.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AlenZhon&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="了解一些Spring框架的相关概念并做简单记录。 整体 Spring 开源框架，三个特性：IoC Inversion of Control控制反转，程序员对对象的创建和控制交由Spring容器，DL依赖注入（依赖注入是IoC的实现方式）， AoP面向切片编程。 模块化，大约有20个模块。核心容器(Core Container)由spring-core，spring-beans，spring-con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Overview">
+<meta property="og:url" content="http://yoursite.com/2020/03/10/Spring00/index.html">
 <meta property="og:site_name" content="AlenZhon&#39;s Blog">
-<meta property="og:description" content="All work and no play makes Jack a dull boy.">
+<meta property="og:description" content="了解一些Spring框架的相关概念并做简单记录。 整体 Spring 开源框架，三个特性：IoC Inversion of Control控制反转，程序员对对象的创建和控制交由Spring容器，DL依赖注入（依赖注入是IoC的实现方式）， AoP面向切片编程。 模块化，大约有20个模块。核心容器(Core Container)由spring-core，spring-beans，spring-con">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-10T02:32:29.000Z">
+<meta property="article:modified_time" content="2020-03-10T03:20:19.057Z">
 <meta property="article:author" content="He Zhihong">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/03/10/Spring00/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false
+    isHome : false,
+    isPost : true
   };
 </script>
 
-  <title>AlenZhon's Blog</title>
+  <title>Spring Overview | AlenZhon's Blog</title>
   
 
 
@@ -188,89 +192,10 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/MavenMirrorChange/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="He Zhihong">
-      <meta itemprop="description" content="All work and no play makes Jack a dull boy.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AlenZhon's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/10/MavenMirrorChange/" class="post-title-link" itemprop="url">Maven替换国内镜像</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-10 10:53:25 / 修改时间：11:19:50" itemprop="dateCreated datePublished" datetime="2020-03-10T10:53:25+08:00">2020-03-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/Maven/" itemprop="url" rel="index"><span itemprop="name">Maven</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <p>idea中Maven默认下载源的速度慢，每次下载jar包要import很久，所以想更换到国内镜像。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/10/MavenMirrorChange/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
   
   
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/Spring00/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -284,8 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/10/Spring00/" class="post-title-link" itemprop="url">Spring Overview</a>
+          Spring Overview
         </h1>
 
         <div class="post-meta">
@@ -323,193 +247,84 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>了解一些Spring框架的相关概念并做简单记录。</p>
+        <p>了解一些Spring框架的相关概念并做简单记录。</p>
 <h2 id="整体"><a href="#整体" class="headerlink" title="整体"></a>整体</h2><ol>
 <li>Spring 开源框架，三个特性：IoC Inversion of Control控制反转，程序员对对象的创建和控制交由Spring容器，DL依赖注入（依赖注入是IoC的实现方式）， AoP面向切片编程。</li>
 <li>模块化，大约有20个模块。核心容器(<code>Core Container</code>)由<code>spring-core，spring-beans，spring-context，spring-context-support</code>和<code>spEL</code>组成，数据访问/集成层包括 <code>JDBC，ORM，OXM，JMS</code> 和事务处理模块，Web 层由 <code>Web，Web-MVC，Web-Socket</code> 和 <code>Web-Portlet</code> 组成，还有其他一些重要的模块，像 <code>AOP，Aspects，Instrumentation</code> 和测试模块。</li>
 </ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/10/Spring00/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<a id="more"></a>
+
+<h2 id="Spring-bean"><a href="#Spring-bean" class="headerlink" title="Spring bean"></a>Spring bean</h2><ol start="3">
+<li><code>Application Context</code> 是 <code>BeanFactory</code> 的子接口，也被称为 Spring 上下文。</li>
+<li>bean 是一个被实例化，组装，并通过 Spring IoC 容器所管理的对象。SpringIoC容器可通过三种方式配置bean：<strong>基于XML配置文件，基于注解，基于Java配置</strong>。下面基于XML进行Bean参数(<code>id, class, scope, init-method, destroy-method</code>)的说明。</li>
+<li>创建bean的三种方式：使用构造器创建，使用静态工厂创建，使用实例工厂创建。</li>
+<li>Spring 框架支持以下五个bean作用域(scope = )，分别为<code>singleton(默认)、prototype、request、session和global session</code>。如果每次调用<code>getBean</code>都是获取同一个实例则需要声明作用域为<code>singleton</code>，如果每次调用都<code>new</code>一个实例则声明为<code>prototype</code>。使用 web-aware ApplicationContext时，<code>request</code>表示每次HTTP请求都new一个实例，<code>session</code>表示同一个session共享同个实例，<code>global session</code>一般用于Portlet应用环境。</li>
+<li>Bean可由<code>init-method</code>和<code>destroy-method</code>参数定义初始化回调方法和销毁回调方法。如果许多Bean中的初始化方法和销毁方法相同，可以直接写到beans的配置中，利用<code>default-init-method</code> 和 <code>default-destroy-method</code>属性完成初始化和销毁方法的声明。</li>
+<li>Bean的继承：子 bean继承了父定义的配置数据，通过parent参数进行声明。Bean的继承与java的继承无关，不需要对应的两个java类用extend关键字继承，但需要子类要继承的属性和父类相同。</li>
+<li>可定义Bean模板，使得其他Bean的定义从模板继承。模板不声明class属性而是声明<code>abstract=”true”</code>。</li>
+</ol>
+<h2 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h2><ol start="10">
+<li>依赖注入：依赖类不由程序员实例化，而是通过spring容器帮我们new指定实例并且将实例注入到需要该对象的类。常用有：<strong>构造方法注入，set方法参数注入，基于注解@Autowired注入</strong>。</li>
+<li><strong>构造方法注入</strong>；当容器调用带有一组参数的类构造函数时，基于构造函数的 DI 就完成了，其中每个参数代表一个对其他类的依赖。XML配置文件中使用<code>constructor-arg</code>。如果构造函数参数有多个，则要在配置文件中按顺序给出/在后面添加<code>index</code>标签显式指定参数索引值。<code>ref</code>传递引用（依赖类），<code>value</code>传递值（基本数据类型或成员属性）。</li>
+<li><strong>Setter注入</strong>：当容器调用无参构造函数时，通过容器调用setter函数完成依赖注入。XML配置文件中使用<code>property</code>标签。</li>
+<li><strong>@Autowired注入</strong>：Bean类依赖注入对象的setter函数或构造函数前加上<code>@Autowired</code>。默认情况下<code>@Autowired</code>是按类型匹配的(byType)。XML配置文件中要添加一行<code>&lt;context:annotation-config/&gt;</code>。</li>
+<li><code>&lt;context:annotation-config/&gt;</code>：仅能够在已经在已经注册过的bean上面起作用。对于没有在spring容器中注册的bean，它并不能执行任何操作。<br><code>&lt;context:component-scan base-package=&quot;XX.XX&quot;/&gt;</code> ：除了具有上面的功能之外，还具有自动将带有<code>@component, @service, @Repository</code>等注解的对象注册到spring容器中的功能。</li>
+<li><strong>@Required</strong> 注解应用于 bean 属性的 setter 方法，它表明受影响的 bean 属性在配置时必须放在 XML文件中，否则容器就会抛出<code>BeanInitializationException</code> 异常。</li>
+<li>当使用<code>@Autowired</code> 标注setter方法时，默认采用byType自动装配策略。在这种策略下，符合自动装配类型的候选Bean实例常常有多个，这个时候就可能引起异常，为了实现精确的自动装配，Spring提供了 <strong>@Qualifier</strong> 注解，通过使用<code>@Qualifier</code>，允许根据Bean的id来执行自动装配</li>
+<li>inner beans 是在其他 bean 的范围内定义的 bean。类似Java内部类的概念。</li>
+<li>注入集合对象：使用<code>&lt;list&gt; &lt;set&gt; &lt;map&gt; &lt;props&gt;</code>分别表示<code>list, set, map, properties</code>其中<code>properties</code>要求<code>key</code>和<code>value</code>都是字符串类型而<code>map</code>不要求类型。</li>
+</ol>
+<h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><ol start="19">
+<li><strong>事件处理</strong>：Spring提供<code>ApplicationListener</code> 接口实现事件管理。一个实现这个接口的事件类应实现一个<code>onApplicationEvent</code>方法。Main方法中<code>context</code>为<code>ConfigurableApplicationContext</code>的实例。Spring 的事件处理是单线程的，所以如果一个事件被发布，直至并且除非所有的接收者得到的该消息，该进程被阻塞并且流程将不会继续。</li>
+<li><strong>自定义事件处理</strong>：继承<code>ApplicationEvent</code>类，同时必须定义默认构造函数。</li>
+</ol>
+<h2 id="AoP"><a href="#AoP" class="headerlink" title="AoP"></a>AoP</h2><ol start="21">
+<li>Spring框架的AOP机制可以让开发者把业务流程中的通用功能抽取出来，单独编写功能代码。在业务流程执行过程中，Spring框架会根据业务流程要求，自动把独立编写的功能代码切入到流程的合适位置。</li>
+<li><strong>切面（<code>Aspect</code>）</strong>：一个关注点的模块化，这个关注点可能会横切多个对象。事务管理是J2EE应用中一个关于横切关注点的很好的例子。<strong>连接点（<code>JointPoint</code>）</strong>表示业务流程在运行过程中需要插入切面的具体位置（方法）。<strong>通知（<code>Advice</code>）</strong>：在切面的某个特定的连接点上执行的动作。<strong>切点（<code>Pointcut</code>）</strong>：用于定义通知应该切入到哪些连接点上，不同的通知通常需要切入到不同的连接点上。<strong>目标对象（<code>Target</code>）</strong>：被一个或者多个切面所通知的对象。<strong>代理（<code>Proxy</code>）</strong>：目标对象的业务逻辑功能加上被切入的切面所形成的对象。<strong>织入（<code>Weaving</code>）</strong>：把切面连接到其它的应用程序类型或者对象上，并创建一个被通知的对象。这个过程可以发生在编译期、类装载期及运行期。</li>
+<li>通知类型：<code>Before Advice/After Returning/After throwing/After (finally)/Around advice</code></li>
+<li>在Spring AOP中，切面可以使用基于XML配置或者基于<code>@Aspect</code>注解的方式来实现。 需要在 pom.xml 里导入依赖包<code>aspectjrt</code>和 <code>aspectjweaver</code>。</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>中文资料感觉都不新。</p>
+<ul>
+<li><a href="https://www.docs4dev.com/docs/zh/spring-framework/4.3.21.RELEASE/reference/overview-getting-started-with-spring.html#spring-%E5%85%A5%E9%97%A8" target="_blank" rel="noopener">Spring Framework中文文档(机翻味道浓，有时间建议看英文)</a></li>
+<li><a href="https://www.w3cschool.cn/wkspring/pesy1icl.html" target="_blank" rel="noopener">w3cschool的spring教程</a></li>
+<li><a href="https://wiki.jikexueyuan.com/project/spring/" target="_blank" rel="noopener">极客学院的spring教程</a></li>
+</ul>
+
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/spring/" rel="tag"># spring</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/hello-world/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="He Zhihong">
-      <meta itemprop="description" content="All work and no play makes Jack a dull boy.">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AlenZhon's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/08/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-08 16:56:11 / 修改时间：17:14:46" itemprop="dateCreated datePublished" datetime="2020-03-08T16:56:11+08:00">2020-03-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/helloworld/" itemprop="url" rel="index"><span itemprop="name">helloworld</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/08/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/08/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/10/MavenMirrorChange/" rel="next" title="Maven替换国内镜像">
+      Maven替换国内镜像 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="He Zhihong">
-      <meta itemprop="description" content="All work and no play makes Jack a dull boy.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AlenZhon's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/08/hexo/" class="post-title-link" itemprop="url">利用Hexo在github上搭建静态个人博客</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-08 12:05:48" itemprop="dateCreated datePublished" datetime="2020-03-08T12:05:48+08:00">2020-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-10 11:14:46" itemprop="dateModified" datetime="2020-03-10T11:14:46+08:00">2020-03-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/helloworld/" itemprop="url" rel="index"><span itemprop="name">helloworld</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h1><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a> 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br>需要先安装Git和nodeJS。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/08/hexo/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -560,6 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体"><span class="nav-number">1.</span> <span class="nav-text">整体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-bean"><span class="nav-number">2.</span> <span class="nav-text">Spring bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖注入"><span class="nav-number">3.</span> <span class="nav-text">依赖注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理"><span class="nav-number">4.</span> <span class="nav-text">事件处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AoP"><span class="nav-number">5.</span> <span class="nav-text">AoP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
