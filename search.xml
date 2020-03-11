@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SpringMVC 相关概念（二）参数绑定&amp;常用注解</title>
+    <url>/2020/03/11/SpringMVC_01/</url>
+    <content><![CDATA[<h2 id="SpringMVC请求参数的绑定"><a href="#SpringMVC请求参数的绑定" class="headerlink" title="SpringMVC请求参数的绑定"></a>SpringMVC请求参数的绑定</h2><p>浏览器把参数数据封装Request中发送给后台，后台Controller如何知道Request参数对应方法里的哪个参数？<br>常用方法：</p>
+<ol>
+<li>方法传入参数的名字和Request参数的名字完全一致。</li>
+<li>在方法参数处使用<code>@RequestParam</code>绑定请求参数值，其中<code>value</code>/<code>name</code>属性是请求参数名， <code>require</code>表示请求参数是否必须，默认为true，<code>defaultValue</code>表示请求参数的默认值，不存在则抛出异常。</li>
+<li>注解<code>@RequestMapping</code>接收参数。注解上的参数必须和请求参数相同。</li>
+</ol>
+<p>例如，Request发来的参数为一个<code>username</code>，下列方法都可以实现参数绑定</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/testParam"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testParam</span><span class="params">(String username)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/testParam"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testParam</span><span class="params">( @RequestParam(value = <span class="string">"username"</span>)</span>String username)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/testParam/&#123;username&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testParam</span><span class="params">(@PathVariable(<span class="string">"username"</span>)</span> String name)</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，也可以<br>4. 使用POJO对象将所有请求参数封装到对象中，要求对象中的属性包含所有请求参数且一一对应。<br>5. 使用原生的Servlet API 作为Controller 方法的参数。 如HttpServletRequest, HttpServletResponse</p>
+<h3 id="解决表单传参数中文乱码的问题"><a href="#解决表单传参数中文乱码的问题" class="headerlink" title="解决表单传参数中文乱码的问题"></a>解决表单传参数中文乱码的问题</h3><p>在web.xml中配置字符过滤器。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--  配置字符过滤器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>characterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>characterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义数据类型转换器"><a href="#自定义数据类型转换器" class="headerlink" title="自定义数据类型转换器"></a>自定义数据类型转换器</h3><p>MVC框架可以自动转换大部分基本数据类型，但某些自动转换会报错。例如String转Date，如果输入字符串”2020-1-1”则会报BAD REQUEST。</p>
+<ol>
+<li>首先写一个类型转换类，实现Converter接口。  </li>
+<li>然后在xml中配置这个自定义类型转换器。  </li>
+<li>最后配置自定义类型转换器生效 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span> <span class="attr">conversion-service</span>=<span class="string">"conversionService"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h2><ol>
+<li>@RequestParam 修饰Controller方法参数<br> 参数绑定时已经有过详细介绍。</li>
+<li>@RequestBody 修饰方法参数，直接获取请求体的内容。<br> 不适用GET（因为GET请求没有请求体）</li>
+<li>@PathVariable 用于绑定url中的占位符，被视为支持RESTful风格。<br> 在参数绑定的第三个方法中使用。</li>
+<li>@RequestHeader 修饰方法参数，获取请求头。</li>
+<li>@CookieValue 获取指定Cookie的值</li>
+<li>@ModelAttribute 出现在方法上，表示当前方法会在Controller方法执行前执行；出现在参数上表示获取指定数据给参数赋值。</li>
+<li>@SessionAttribute 用于多次执行Controller方法的数据共享。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>springMVC</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>springMVC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringMVC 相关概念</title>
     <url>/2020/03/10/SpringMVC/</url>
     <content><![CDATA[<p>了解一些SpringMVC的基本概念，并用一个入门程序加深理解。</p>
@@ -103,8 +150,8 @@
         <category>Maven</category>
       </categories>
       <tags>
-        <tag>maven</tag>
         <tag>java</tag>
+        <tag>maven</tag>
       </tags>
   </entry>
   <entry>
