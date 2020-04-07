@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>java设计模式1 - 创建型模式</title>
+    <url>/2020/03/25/DesignPattern1/</url>
+    <content><![CDATA[<p>设计模式是一套经过代码编写人员反复试验和总结错误后形成的解决方案，使用设计模式提高了代码的可重用性，更容易被其他程序员所理解。每种模式都针对现实中不同的问题提供了自己的解决方法。Gang of Four提出的主要是面向对象的设计模式规则：面向接口编程而不是面向实现编程，多用对象组合而非继承。</p>
+<p>常用的设计模式可分为三大类：创建型模式Creational Pattern，结构型模式Structural Pattern和行为型模式Behavioral Pattern。</p>
+<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><p>创建型模式主要关注如何创建对象，它们想达到的目标是对象的创建与使用相分离，这样使用者就不需要关注这个对象的实例化过程中的细节，降低系统的耦合度。</p>
+<p>主要有单例模式，原型模式，工厂模式，抽象工厂模式，建造者模式。</p>
+<a id="more"></a>
+
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单例模式要求该类只允许生成一个实例对象，并且这个对象是由类自行生成，外部通过固定的方法访问这个实例。这个类也叫作单例类。</p>
+<p>由于只能生成一个实例对象，单例类的构造方法要被修饰为私有，同时提供静态访问方法供外部访问。</p>
+<p><strong>优点：</strong> 内存中只有一个实例减小开销；防止对资源的多重操作。<br><strong>缺点：</strong> 单例类同时要注重类的实现和类的创建，违背了高内聚的单一职责原则。<br><strong>注意事项：</strong> 单例类的静态访问方法在多线程条件下需要加同步锁，防止多个线程同时进入进行多次实例化。</p>
+<h3 id="单例模式的多种实现方式"><a href="#单例模式的多种实现方式" class="headerlink" title="单例模式的多种实现方式"></a>单例模式的多种实现方式</h3><h4 id="非线程安全的懒汉式"><a href="#非线程安全的懒汉式" class="headerlink" title="非线程安全的懒汉式"></a>非线程安全的懒汉式</h4><p>在单例类中声明一个静态单例对象<code>Instance</code>，并在静态访问方法<code>getInstance()</code>中完成单例对象的创建。满足了延迟加载(lazy loading)的条件，但由于没有给访问方法加同步锁，所以它线程不安全。</p>
+<h4 id="线程安全的懒汉式"><a href="#线程安全的懒汉式" class="headerlink" title="线程安全的懒汉式"></a>线程安全的懒汉式</h4><p>在上一种实现方式的基础上，给静态访问方法加上同步锁，使得其线程安全。它也满足延迟加载的条件，在调用访问方法时才完成单例创建，节省内存，但加锁会影响效率。</p>
+<h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><p>在定义静态单例对象时直接完成创建 <code>private static Singleton Instance = new Singleton()</code>。这种方法在类加载的时候就创建了单例对象，基于classloader机制避免了多线程同步问题，是线程安全的。但如果一直没有外部类访问就浪费了内存，不是延迟加载。</p>
+<h4 id="DCL双重校验锁"><a href="#DCL双重校验锁" class="headerlink" title="DCL双重校验锁"></a>DCL双重校验锁</h4><p>给静态单例加上<code>volatile</code>关键字，防止指令重排和保证可见性，然后在静态访问方法中两步校验，通过加锁保证只有一个线程能够进行第二次null值判断，防止多线程情况下创建出多个实例。延迟加载并且线程安全。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton<span class="class">.<span class="keyword">class</span>) </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();  </span><br><span class="line">        &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> singleton;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h4><p>将单例对象的声明放置到静态内部类之中。延迟加载并且线程安全。静态内部类不会在<code>Singleton</code>类加载时就加载，而是在调用<code>getInstance()</code>方法时才进行加载，达到了懒加载的效果。</p>
+<h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><p>由于存在反射攻击和反序列化攻击，反射攻击可以通过反射方法获取所有构造器方法，反序列化攻击使用反序列化方法，而创造了多个单例。将单例类定义成枚举，是effective java中推荐的单例模式实现。</p>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><p>用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象。在JAVA中抽象原型类实现clonable接口，具体原型类实现抽象原型类的clone方法，外部类通过调用具体原型类的clone方法获取复制的对象。</p>
+<p>适用于对象的创建较为麻烦而复制比较简单的场景。原型模式常常和工厂模式一起出现，用工厂方法把clone()出来的新对象提供给外部调用者。</p>
+<p><strong>注意事项：</strong> 与通过对一个类进行实例化来构造新对象不同的是，原型模式是通过拷贝一个现有对象生成新对象的。浅拷贝是实现 Cloneable进行重写，深拷贝是通过实现 Serializable 读取二进制流。</p>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式又有从简单工厂模式，工厂方法模式到抽象工厂模式的演化，其中后两种是在GOF提出的设计模式之内。</p>
+<h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p>将new对象实例的工作写成一个工厂类，向外部提供一个创建对象的方法，让工厂类通过参数自行实例化特定产品对象。</p>
+<p>比如用<code>Shape</code>接口定义几何形状，其中声明了<code>draw</code>方法。圆，正方形等不同的几何形状实现了<code>Shape</code>接口。定义工厂类<code>ShapeFactory</code>，通过传入的参数<code>String shapeType</code>判断具体要实例化哪一个类。</p>
+<p><strong>优点：</strong> 屏蔽了类的具体实现，使用者只需知道对象的名称即可得到实例，实现了解耦；<br><strong>缺点：</strong> 如果有新的类加入则需要修改工厂类添加判断，违背了对扩展开放，对修改关闭的开闭原则。</p>
+<p>简单工厂模式不属于GOF定义的23中设计模式之中。</p>
+<h3 id="工厂方法模式（多态工厂模式）Factory-Method-Pattern"><a href="#工厂方法模式（多态工厂模式）Factory-Method-Pattern" class="headerlink" title="工厂方法模式（多态工厂模式）Factory Method Pattern"></a>工厂方法模式（多态工厂模式）Factory Method Pattern</h3><p>在简单工厂模式的基础上，把工厂类进一步抽象，形成抽象工厂和具体工厂，一类具体工厂创建一类产品对象。将产品类的创建延迟到具体工厂（工厂类的子类）中完成。</p>
+<p><strong>优点：</strong> 符合开闭原则，工厂类对扩展开放，对接口关闭；符合单一职责原则，每个具体工厂类只负责创建自己的具体产品对象。<br><strong>缺点：</strong> 如果有新的类加入则需要新建一个对应的具体工厂类，系统的复杂性成对增加。</p>
+<h3 id="抽象工厂模式Abstract-Factory-Pattern"><a href="#抽象工厂模式Abstract-Factory-Pattern" class="headerlink" title="抽象工厂模式Abstract Factory Pattern"></a>抽象工厂模式Abstract Factory Pattern</h3><p>为了解决工厂方法中每个具体工厂类只能创建对应的具体产品类，抽象工厂模式提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+<p>多个抽象产品类，每个抽象产品类可以派生出多个具体产品类。一个抽象工厂类，可以派生出多个具体工厂类。 每个具体工厂类可以创建多个具体产品类的实例。  </p>
+<p>提出了一个抽象产品族的概念，是抽象产品的父类，描述抽象产品的公共接口。比如手机-手机品牌（三星，苹果，华为）-品牌型号的关系，就分别对应抽象产品族，抽象产品，具体产品。</p>
+<p><strong>优点：</strong> 当一个产品族中的多个对象被设计成一起工作时，它能保证客户端始终只使用同一个产品族中的对象。<br><strong>缺点：</strong> 产品族扩展非常困难，要增加一个系列的某一产品，既要在抽象的 Creator 里加代码，又要在具体的里面加代码。<br><strong>使用场景：</strong> 1、QQ 换皮肤，一整套一起换。 2、生成不同操作系统的程序。</p>
+<p>注意事项：产品族难扩展，产品等级易扩展。</p>
+<h3 id="建造者模式Builder-Pattern"><a href="#建造者模式Builder-Pattern" class="headerlink" title="建造者模式Builder Pattern"></a>建造者模式Builder Pattern</h3><p>使用多个简单的对象一步一步构建成一个复杂的对象，将复杂对象的变与不变分离开。对用户隐藏建造细节，使得用户在不知对象的建造过程 &amp; 细节的情况下，就可直接创建复杂的对象(比如KFC里的套餐，由汉堡薯条小菜饮料各个简单对象组合而成)。</p>
+<p><strong>优点：</strong> 1、建造者独立，易扩展。 2、便于控制细节风险。<br><strong>缺点：</strong> 1、产品必须有共同点，范围有限制。 2、如内部变化复杂，会有很多的建造类。<br><strong>使用场景：</strong> 1、需要生成的对象具有复杂的内部结构。 2、需要生成的对象内部属性本身相互依赖。  </p>
+<p>与工厂模式相比，建造者模式更关注建造类中各个简单对象的组合关系，工厂模式更关注给外部类提供的工厂方法。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
+        <tag>创建型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mybatis-generator出现ClassNotFoundException的解决方法</title>
+    <url>/2020/03/13/mybatis-generator_problems/</url>
+    <content><![CDATA[<h2 id="mybatis-generator"><a href="#mybatis-generator" class="headerlink" title="mybatis-generator"></a>mybatis-generator</h2><p>mybatis-generator能够帮我们根据数据库中的表快捷方便地创建Dao，entry，XML，加快开发速度。但是在generate时出现<code>java.lang.ClassNotFoundException: com.mysql.jdbc.Driver</code>错误。</p>
+<p>检查了一下连接池参数没有写错。</p>
+<p>搜索引擎中说出现这种错误的原因是: 项目中没有导入这个jar包, 或者导入路径错误。</p>
+<p>解决方法：在项目目录下src/main/webapp/WEB-INF路径新建lib文件夹，然后把使用的jdbc驱动（如<code>mysql-connector-java-5.1.6.jar</code>）放进去，最后在mybatis-generator的配置文件里给ClassPathEntry字段配置上这个相对路径</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classPathEntry</span> <span class="attr">location</span>=<span class="string">"src/main/webapp/WEB-INF/lib/mysql-connector-java-5.1.6.jar"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/hejjon/p/10987070.html" target="_blank" rel="noopener">搜到并有效的解决方法</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>maven</tag>
+        <tag>mybatis</tag>
+        <tag>mybatis-generator</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SSM整合</title>
     <url>/2020/03/11/SSM00/</url>
     <content><![CDATA[<h2 id="SSM整合环境实例"><a href="#SSM整合环境实例" class="headerlink" title="SSM整合环境实例"></a>SSM整合环境实例</h2><p>主要目标：学习SSM整合的过程。用spring去整合springMVC, MyBatis。<br>需求：前台发送请求查询MySQL数据库中的账户信息，数据库表中属性包括id, name, money。<br>基于XML + 注解的方式</p>
@@ -110,8 +181,8 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>spring</tag>
         <tag>springMVC</tag>
+        <tag>spring</tag>
         <tag>MyBatis</tag>
       </tags>
   </entry>
@@ -265,8 +336,8 @@
         <category>Maven</category>
       </categories>
       <tags>
-        <tag>maven</tag>
         <tag>java</tag>
+        <tag>maven</tag>
       </tags>
   </entry>
   <entry>
