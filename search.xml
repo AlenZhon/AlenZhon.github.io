@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>美团一面</title>
+    <url>/2020/04/08/InterviewExp-meituan/</url>
+    <content><![CDATA[<p>4.8 25分钟，基本凉了。</p>
+<ul>
+<li>自我介绍 </li>
+<li>掰扯一下实验室项目 问这个的应用场景 </li>
+<li>为什么在实验室项目里用的sqlite不用MySQL </li>
+<li>（看出我是自学的）讲一下自己玩的这个项目 </li>
+<li>MySQL知道哪些？讲一下并发问题，事务的隔离级别 </li>
+<li>MySQL怎么解决幻读问题？(nextKey Lock) </li>
+<li>具体讲一下next key Lock？ </li>
+<li>索引和间隙锁的关系 </li>
+<li>id自增的情况下如何插入一条数据记录？结合实际说明</li>
+<li>你对MVCC的理解？（没了解过） </li>
+<li>多线程线程池的构造参数 </li>
+<li>线程池的源码看过吗 </li>
+<li>hashMap源码？怎么计算hashcode？为什么容量是2的幂次方 </li>
+<li>常用的集合类？ </li>
+<li>TreeMap和HashMap哪个的插入效率高？(emmm还答错了) </li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java设计模式1 - 创建型模式</title>
     <url>/2020/03/25/DesignPattern1/</url>
     <content><![CDATA[<p>设计模式是一套经过代码编写人员反复试验和总结错误后形成的解决方案，使用设计模式提高了代码的可重用性，更容易被其他程序员所理解。每种模式都针对现实中不同的问题提供了自己的解决方法。Gang of Four提出的主要是面向对象的设计模式规则：面向接口编程而不是面向实现编程，多用对象组合而非继承。</p>
