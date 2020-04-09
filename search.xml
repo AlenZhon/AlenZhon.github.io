@@ -1,6 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HashMap与TreeMap, LinkedHashMap, ConcurrentHashMap的简单比较</title>
+    <url>/2020/04/09/HashMap2/</url>
+    <content><![CDATA[<a id="more"></a>
+<h2 id="TreeMap的优缺点"><a href="#TreeMap的优缺点" class="headerlink" title="TreeMap的优缺点"></a>TreeMap的优缺点</h2><p>优点： 底层采用红黑树，支持自定义实现的比较器，支持排序；存储空间无冗余，一个TreeNode节点对应一个键值对。<br>缺点：查询的时间复杂度由于红黑树结构限制为O(logN)；增加或删除节点的时候会导致红黑树的重排。</p>
+<h2 id="存储结构的比较"><a href="#存储结构的比较" class="headerlink" title="存储结构的比较"></a>存储结构的比较</h2><ul>
+<li><code>HashMap</code>：数组+链表+红黑树</li>
+<li><code>LinkedHashMap</code>：与HashMap相同，同时维护一个根据插入顺序保持的双向链表（迭代遍历时用到）。</li>
+<li><code>TreeMap</code>: 红黑树</li>
+<li><code>ConcurrentHashMap</code>：和<code>HashMap</code>相同。但用<code>TreeNode</code>节点的包装对象<code>TreeBin</code>代替了红黑树对象。</li>
+</ul>
+<h2 id="有序："><a href="#有序：" class="headerlink" title="有序："></a>有序：</h2><ul>
+<li>HashMap，ConcurrentHashMap无序</li>
+<li>LinkedHashMap 根据插入先后顺序确定遍历顺序</li>
+<li>TreeMap 有序，根据Key进行比较获取先后顺序</li>
+</ul>
+<h2 id="迭代："><a href="#迭代：" class="headerlink" title="迭代："></a>迭代：</h2><ul>
+<li>HashMap调用HashIterator的nextNode方法</li>
+</ul>
+<ol>
+<li>从头开始遍历数组</li>
+<li>若数组中该索引处为null，或者Node的next指向null，则扫描数组的下一位</li>
+<li>若数组中该索引处非null，切Node的next指向另一个Node，则依次扫描Node的next元素，直到为null</li>
+</ol>
+<ul>
+<li>LinkedHashMap 调用LinkedHashIterator的nextNode方法，从head头指针触发遍历双向链表直到tail。</li>
+<li>TreeMap按照树的中序遍历扫描。</li>
+</ul>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>这几种只有ConcurrentHashMap线程安全。HashTable的线程安全性是在各个方法上加synchronized关键字实现的。</p>
+<h3 id="jdk7-ConcurrentHashMap"><a href="#jdk7-ConcurrentHashMap" class="headerlink" title="jdk7 ConcurrentHashMap"></a>jdk7 ConcurrentHashMap</h3><p>1.7时用的分段锁，Segment[]的数组元素是一个数组加链表的结构。</p>
+<h4 id="ConcurrentHashMap-put操作"><a href="#ConcurrentHashMap-put操作" class="headerlink" title="ConcurrentHashMap put操作"></a>ConcurrentHashMap put操作</h4><p>先通过key找到承载的Segment对象位置，然后竞争操作Segment的独占锁，以确保操作线程。获取锁tryLock()，如果获取锁失败，执行<code>scanAndLockForPut</code>方法，循环调用<code>tryLock</code>，如果循环次数大于设定好的值（单核为1多核64）执行<code>lock</code>方法，阻塞等待直到获得segment独占锁。</p>
+<h4 id="ConcurrentHashMap-get操作"><a href="#ConcurrentHashMap-get操作" class="headerlink" title="ConcurrentHashMap get操作"></a>ConcurrentHashMap get操作</h4><p>计算key的hash值确定segment位置，用<code>UNSAFE.getObjectVolatile</code>获得数据链表，迭代查找对应的value值，并没有获取锁。<br>讨论线程安全问题：</p>
+<ol>
+<li>一个线程get，一个put<br>先执行get，遍历已经到链表中间，而规定头插法所以不会影响线程安全。如果先执行put，就必须保证刚刚插入的表头节点能被读取，ConcurrentHashMap使用的<code>UNSAFE.putOrderedObject</code>赋值方式保证。</li>
+<li>一个put并在扩容，另一个get<br>扩容时新创建HashEntry数组，先执行get则在旧数组上查询，不影响扩容，先执行put的话在oldTable使用了<code>volatile</code>关键字修饰所以不慌。</li>
+<li>一个remove，一个get<br>分2种情况， <em>1)</em> 删除节点在链表表头。那操作节点就是HashEntry数组元素了，虽然HashEntry[] table 使用了volatile修饰， 但是， volatile并保证数据内部元素的操作可见性，所以只能使用UNSAFE 来操作元素。 <em>2)</em> 删除节点中标中间，节点中的next属性是volatile修饰所以也不慌。</li>
+</ol>
+<h3 id="jdk8-ConcurrentHashMap"><a href="#jdk8-ConcurrentHashMap" class="headerlink" title="jdk8 ConcurrentHashMap"></a>jdk8 ConcurrentHashMap</h3><p>抛弃分段锁，采用了较为轻捷的Node + CAS + Synchronized设计，保证线程安全。</p>
+<h4 id="put操作"><a href="#put操作" class="headerlink" title="put操作"></a>put操作</h4><p>死循环保证并发时安全添加成功。</p>
+<ul>
+<li>第一次添加时初始化table数组，</li>
+<li>如果数组对应下标不存在节点，用<code>casTabAt</code> : 底层使用<code>Unsafe.compareAndSwapObject</code>原子操作table[i]位置，如果为null，则添加新建的node节点，跳出循环，反之，再循环进入执行添加操作</li>
+<li>否则在链表或者红黑树中追加节点<ul>
+<li>首先用synchronized对node对象加锁保证线程安全<ul>
+<li>判断是链表还是红黑树，分别进入put逻辑</li>
+<li>判断是否需要转化成红黑树（树化时也用了synchronized加锁）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="get操作"><a href="#get操作" class="headerlink" title="get操作"></a>get操作</h4><p>和1.7大同小异，获取table[i]存储的节点元素使用了tabAt方法，底层调用了<code>getObjectVolatile()</code>方法保证多线程可见性，获取到内存中最新的元素。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.jianshu.com/p/1e1a96075256" target="_blank" rel="noopener">关于ConcurrentHashMap的分析</a></li>
+<li><a href="https://my.oschina.net/u/566591/blog/1549908" target="_blank" rel="noopener">关于几个容器类的比较</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Map</tag>
+        <tag>HashMap</tag>
+        <tag>TreeMap</tag>
+        <tag>LinkedHashMap</tag>
+        <tag>ConcurrentHashMap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap源码分析</title>
+    <url>/2020/04/09/HashMap/</url>
+    <content><![CDATA[<p>java.util.HashMap继承了AbstractMap类，实现Map接口。<br>用得很多，看看源码记一记。</p>
+<p><strong>存储结构：数组+链表</strong>（拉链法解决哈希碰撞）java8加入<strong>红黑树</strong>防止链表长度过大的时候查询效率变慢。</p>
+<a id="more"></a>
+<ul>
+<li>解决hash碰撞的方法：1. <em>开放定址法</em>：向前找空位置存（冲突聚集，删除只能做删除标记，空间满还需要溢出表）； 2. <em>再哈希</em>：再用一个哈希函数（增加计算时间）；3. <em>溢出表</em>：建立公共缓存区，冲突都丢到那里去（缓存区里查询效率变慢）；4. <em>拉链法</em>。</li>
+<li>当put新元素使得当前链表长度达到阈值<code>TREEIFY_THRESHOLD</code> 8的时候调用treeify()树化，当remove或resize使得当前链表长度小于等于<code>UNTREEIFY_THRESHOLD</code>6时退化为链表。两个阈值岔开一些防止在阈值附近来回横跳影响性能。</li>
+<li>阈值为8的设定： 理想情况下，当加载因子为0.75时，散列表中每个链表的长度k满足期望约为0.5的泊松分布，概率<code>(exp(-0.5) * pow(0.5, k) / factorial(k))</code>计算得出当k取8时到了0.00000006，再长的概率小于百万分之一，所以取8作为树化的阈值。(源码的注释里还贴了英文维基)</li>
+<li>数组初始容量16，负载因子0.75，所以扩容的阈值是12。</li>
+</ul>
+<p>数组定义为<code>transient Node&lt;K,V&gt;[] table;</code>用transient关键字防止序列化是因为HashMap使用的<code>Object.hashCode()</code>方法是native方法，在不同的java虚拟机中可能有不同的实现，序列化之后HashMap失去了跨平台的特性。</p>
+<ul>
+<li>静态内部类Node中主要有四个成员hash, key, value, next。</li>
+</ul>
+<p>HashMap不会在构造方法中初始化数组，而是修改threshold为capacity，到第一次put元素时调用扩容<code>resize()</code>方法。</p>
+<ul>
+<li>用<code>initialCapacity</code>做入参时，调用<code>tableSizeFor()</code>方法求出大于等于<code>intialCapacity</code>的最大的2的幂。 </li>
+<li><code>tableSizeFor()</code>算法很有意思，<code>n = cap - 1</code>，然后连续做或运算，分别或上自己的无符号右移1，2，4，8，16次，这样使得n最高位以下都是1，最后加一即为所求2的幂。</li>
+</ul>
+<p>为什么HashMap的容量都是2的幂次？这和hash计算方法和计算数组下标index有关。</p>
+<ul>
+<li>hash方法：如果<code>key == null</code> 则返回0，否则计算key的hashCode()，保留高16位不变，低16位异或高16位。这样是防止数组容量较小时能够考虑到高位的不同，减少hash碰撞次数。</li>
+<li>计算数组下标index用的是 <code>(n - 1) &amp; hash</code>而非取余运算，因为当容量都是2的幂次时对长度取余和上面的或运算两者是等价的，提高计算效率。</li>
+<li>还有一个好处是，扩容的时候节省了一些重新算节点的hash值时间，与运算左边多看一位就行，并且可以把原先的节点分到旧位置和旧位置+oldCap两个下标上面。</li>
+</ul>
+<h3 id="resize-扩容方法"><a href="#resize-扩容方法" class="headerlink" title="resize() 扩容方法"></a>resize() 扩容方法</h3><p>不仅实现扩容，还负责数组的初始化。</p>
+<ul>
+<li>过程</li>
+</ul>
+<ol>
+<li>如果<code>oldCap &gt; 0</code>，将数组大小扩大两倍，阀值同样扩大两倍</li>
+<li>如果<code>oldCap == 0 &amp;&amp; oldThr &gt; 0</code>，比如调用了规定容量大小的构造函数。将容量设为阀值大小。</li>
+<li>如果<code>oldCap ==0</code>代表初始化操作，数组大小为16，阀值为12。</li>
+<li>如果<code>oldTab != null</code>代表是扩容操作，对节点重新定位，一个节点 Node 的 hash 字段指的是 key 的 hash，在确定它在数组中的位置是在putVal方法中，采用的是<code>hash &amp; (capacity-1)</code>，capacity能取什么值？2的指数倍，那么在重新安排新位置时先遍历数组，针对每个bin，将里面的节点按照<code>hash &amp; (capacity - 1)</code>分为两拨，如果hash &amp; capacity == 0放在旧位置处，否则放在oldCap + 旧位置 = 新位置处。</li>
+</ol>
+<ul>
+<li>java1.7时候扩容用的头插法，链表扩容之后里面的节点会首尾调换顺序，并发情况下可能会出现死循环问题。java8调整为尾插法，扩容后节点顺序保持原先的先后顺序。</li>
+</ul>
+<h3 id="put-方法"><a href="#put-方法" class="headerlink" title="put() 方法"></a>put() 方法</h3><p>调用了内部的putVal。</p>
+<ul>
+<li>过程：</li>
+</ul>
+<ol>
+<li>判断数组是否为空或者长度为0 <ul>
+<li>是则调用扩容方法初始化</li>
+</ul>
+</li>
+<li>根据<code>hash &amp; (n - 1)</code>计算所在索引。</li>
+<li>talbe[i]是否为空<ul>
+<li>是则直接插入</li>
+<li>否则比较节点的hash值和key值<ul>
+<li>相同则直接覆盖（因为<code>onlyIfAbsent</code>的传入参数是false）</li>
+<li>不相同则判断是否是TreeNode节点，是就调用<code>putTreeVal()</code>否则遍历链表插入，并判断这次插入是否使得长度达到树化阈值，是则树化。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>++size</li>
+<li>判断size是否大于threshold，是则扩容。</li>
+</ol>
+<h3 id="remove-方法"><a href="#remove-方法" class="headerlink" title="remove()方法"></a>remove()方法</h3><p>调用内部的removeNode()。</p>
+<ul>
+<li>过程</li>
+</ul>
+<ol>
+<li>前置条件：数组初始化且数组中hash对应下标的节点存在。</li>
+<li>判断数组中存的是否就是需要删的<ul>
+<li>是则用局部变量node暂存</li>
+<li>否则在链表或者红黑树里，判断是否是TreeNode节点，是就调用<code>getTreeNode()</code>找结点，否则遍历链表，比较节点的hash值和key值。</li>
+</ul>
+</li>
+<li>局部变量node不为null，并且value值相同则直接移除node指向的节点。<ul>
+<li>如果是TreeNode结点调用<code>removeTreeNode()</code>，</li>
+<li>否则如果就是数组里存的节点 <code>tab[index] = node.next;</code></li>
+<li>否则 <code>p.next = node.next;</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="迭代器的实现"><a href="#迭代器的实现" class="headerlink" title="迭代器的实现"></a>迭代器的实现</h3><p>三个迭代器方法 <code>keySet()</code>, <code>entrySet()</code>，<code>values()</code>返回的是内部成员变量。以entrySet()为例返回的是entrySet成员变量，并没有在添加删除的时候同步维护，而是调用entrySet()的时候创建了一个EntrySet对象。</p>
+<p>EntrySet继承了AbstractSet，遍历采用迭代器模式，调用了EntryIterator迭代器类继承<code>HashIterator</code>的<code>nextNode()</code>方法。</p>
+<ul>
+<li>遍历过程：</li>
+</ul>
+<ol>
+<li>初始化：扫描table数组找到第一个有效的节点并赋值给next对象</li>
+<li>遍历：<ul>
+<li>next赋值给临时变量e（保证遍历的可持续性，返回的是next，在返回前要找到下一个）</li>
+<li>重新设置next对象<ul>
+<li>e.next存在表示哈希碰撞了，next指向下一个节点</li>
+<li>e.next对象为空或者到达链表尾部了就找下一个index有效的节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>HashIterator构造方法中用modCount赋值了<code>expectedModCount</code>，调用<code>nextNode()</code>方法`中判断了这两个Count是否还相等，不相等就抛出并发修改异常。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Map</tag>
+        <tag>HashMap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>美团一面</title>
     <url>/2020/04/08/InterviewExp-meituan/</url>
     <content><![CDATA[<p>4.8 25分钟，基本凉了。</p>
@@ -211,8 +390,8 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>springMVC</tag>
         <tag>spring</tag>
+        <tag>springMVC</tag>
         <tag>MyBatis</tag>
       </tags>
   </entry>
