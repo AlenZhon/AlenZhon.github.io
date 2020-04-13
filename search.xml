@@ -4,6 +4,7 @@
     <title>美团又一面</title>
     <url>/2020/04/13/InterviewExp-Meituan1/</url>
     <content><![CDATA[<p>4.13 1小时</p>
+<a id="more"></a>
 <p>台式机的麦克风蜜汁出问题 调了十分钟也没好 后面电话交流看屏幕完成面试</p>
 <ul>
 <li>自我介绍</li>
@@ -26,6 +27,13 @@
 <li>消息队列的理解</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>面试</tag>
+      </tags>
   </entry>
   <entry>
     <title>HashMap与TreeMap, LinkedHashMap, ConcurrentHashMap的简单比较</title>
@@ -210,6 +218,7 @@
     <title>美团一面</title>
     <url>/2020/04/08/InterviewExp-meituan/</url>
     <content><![CDATA[<p>4.8 25分钟，基本凉了。</p>
+<a id="more"></a>
 <ul>
 <li>自我介绍 </li>
 <li>掰扯一下实验室项目 问这个的应用场景 </li>
@@ -753,8 +762,8 @@
         <category>helloworld</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>helloworld</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
