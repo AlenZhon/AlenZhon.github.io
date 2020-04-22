@@ -1,10 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>招行信用卡中心</title>
+    <url>/2020/04/20/IntervieExp-Zhaoshang/</url>
+    <content><![CDATA[<p>4.20 早1027-1044 14分钟</p>
+<a id="more"></a>
+
+<ul>
+<li>自我介绍 掰扯项目</li>
+<li>具体讲一下java的这个项目 几个人去做的</li>
+<li>spring怎么去学习的</li>
+<li>看了什么关于java的书？(说了thinking in java被问还有吗 再加一本java并发编程的艺术)</li>
+<li>Array，ArrayList, LinkedList的区别比较</li>
+<li>线程池的了解</li>
+<li>消息队列</li>
+<li>数据库用过哪些</li>
+<li>数据库的第三范式 （哦豁）</li>
+<li>平时遇到技术问题去哪里查找解决方法</li>
+<li>最近看了什么技术书籍</li>
+<li>对于未来三年的工作规划</li>
+<li>找了银行和互联网的开发岗位， 如果都给了offer给你选会怎么选</li>
+<li>为什么不找通信专业对口的岗位</li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OPPO的后台开发</title>
+    <url>/2020/04/19/IntervieExp-OPPO/</url>
+    <content><![CDATA[<p>4.19 晚1958-2012 14分钟</p>
+<a id="more"></a>
+<p>面试官没开摄像头 怕不是急着下班 语音广普味道很亲切2333</p>
+<ul>
+<li>自我介绍</li>
+<li>HashMap？扩容的具体流程？扩容的时候是新增内存还是增加空间？（最后这个问题有点奇怪）</li>
+<li>concurrentHashMap的理解？</li>
+<li>Spring bean的作用域？</li>
+<li>MySQL 的索引有哪些</li>
+<li>说一下反射</li>
+<li>线程池的工作原理？   (答得不太好)</li>
+<li>JVM的了解？new一个对象的工作流程？ （答得不太好）</li>
+<li>使用的框架有哪些？</li>
+<li>Spring AOP IOC的理解？ </li>
+<li>SpringBoot用过吗？</li>
+<li>数据库用过啥？数据库引擎有哪些？InnoDB和MyISAM的区别？</li>
+<li>最近在看什么书籍？</li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>腾讯面试(PCG研发部)</title>
-    <url>/2020/04/17/InteviewExp-TX/</url>
-    <content><![CDATA[<a id="more"></a>
-<p>4.17 二面 午1430-1510 40分钟 PCG基础研究</p>
+    <url>/2020/04/17/InterviewExp-TX/</url>
+    <content><![CDATA[<p>4.17 二面 午1430-1510 40分钟 PCG基础研究<br>1600官网记录变灰————提前批已挂 等一手正式批。</p>
+<a id="more"></a>
 <p>（赖在床上看黑人抬棺 接到电话一咕噜爬起来 面试的时候脑子里都是Astronomia）</p>
 <ul>
 <li>自我介绍</li>
@@ -522,8 +583,8 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>springMVC</tag>
         <tag>spring</tag>
+        <tag>springMVC</tag>
         <tag>MyBatis</tag>
       </tags>
   </entry>
@@ -858,8 +919,8 @@
         <category>helloworld</category>
       </categories>
       <tags>
-        <tag>helloworld</tag>
         <tag>hexo</tag>
+        <tag>helloworld</tag>
       </tags>
   </entry>
 </search>
