@@ -1,7 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>招行信用卡中心</title>
+    <title>暑期实习面试-快手</title>
+    <url>/2020/04/30/InterviewExp-Kuaishou/</url>
+    <content><![CDATA[<p>4.30 1500-1540 快手 40分钟</p>
+<p>内容与社区孵化部 面试官思维和语速都挺快</p>
+<a id="more"></a>
+
+<ul>
+<li>上来就问我在不在北京 学校放不放</li>
+<li>介绍一下自己做过的项目（实验室项目直接不问）</li>
+<li>自己学习的渠道</li>
+<li>Java里int几个字节？MySQL里int几个字节？如果MySQL要存性别男女应该用什么数据类型？(脑子瓦特了)</li>
+<li>如果单机单进程服务器上，Controller里要实现一个访问人数计数器，用一个int++就可以了吗？怎么去修改？</li>
+<li>synchronized比较重量级，有轻量级的实现方式吗(原子类)</li>
+<li>SpringMVC里Controller怎么对url做响应 (答<br>了DispatcherServlet和@RequestMapping)</li>
+<li>MySQL的默认事务隔离级别？怎么解决的幻读问题？</li>
+<li>项目里怎么实现事务管理的？（在XML里配置了声明式的事务管理器2333）</li>
+<li>业务层MethodA和MethodB需要事务调用，同时MethodA调用了MethodB，那么当MethodB抛出异常会产生什么影响？</li>
+<li>对缓存和消息队列有了解吗（说了redis）</li>
+<li>redis几种数据类型？zset用了什么数据结构？跳表的具体实现？</li>
+<li>学习到现在，你觉得什么样的代码是比较好的，比较优雅的？(what？？？ 下意识答了一下设计模式 给自己挖坑了 早知道就答面向对象特性什么的)</li>
+<li>给你一个设计场景，说电商平台的客服系统收到的客户问题现在可以分为三种类型（整个问题完全匹配，关键字匹配，人工），controller里的方法写了三个if-else这样你觉得可以怎么改进？（哦豁 想了好久 憋了个策略模式）</li>
+<li>（过去了三十分钟）写写代码： 冒泡排序（写了个最简单的 问怎么改进）/二叉树层序遍历输出/跳台阶（没写 直接说了递归/简单动态规划）</li>
+<li>反问环节: 目前在做的业务项目(一甜相机 快看点 喜翻 光音) / 面试评价和流程（说只有一面 怪不得上来从项目切入的）/远程实习（实习生权限/实践不方便） </li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>暑期实习面试-网易互娱</title>
+    <url>/2020/04/27/InterviewExp-neteaseGame/</url>
+    <content><![CDATA[<p>0427 网易互娱一面 1630-1725 55分钟</p>
+<a id="more"></a>
+
+<ul>
+<li>自我介绍</li>
+<li>项目</li>
+<li>项目里用到了linux，linux进程间通信有哪几种</li>
+<li>== 和equals？ String比较相等用哪种？ 既然有equals为什么还要有==？</li>
+<li>多线程的synchronized</li>
+<li>除了synchronized还有什么？（讲了Lock接口 可重入锁） </li>
+<li>为什么要引入可重入锁？应用场景？（哦豁 重复加锁的应用场景2333）</li>
+<li>CAS的概念和流程？</li>
+<li>进程和线程的区别？什么时候使用多进程什么时候使用多线程？(哦豁 什么时候使用)</li>
+<li>比如说面试的chrome浏览器是一个进程，那么新开一个页面是对应开一个线程吗</li>
+<li>讲一下HTTP协议吧 有哪些请求方法 (讲了GET POST PUT)</li>
+<li>GET和PUT的区别？你刚才说POST把数据放在消息体GET在URL，<br>那么如果我要传的数据放在哪里都无所谓，为什么还要POST（好像是这样 问题问的很别扭）</li>
+<li>你做的电商平台怎么保证你数据的一致性？如果支付扣5块钱，是一个什么流程？<br>如果在扣钱的过程中又发起了扣钱请求数据不就脏了？ （说了数据库的锁 似乎不是很满意）</li>
+<li>如果我要设计IM软件聊天记录的存储，怎么设计数据表？如果用sqlite数据库 消息内容应该用什么数据类型<br>如果消息内容里有比如emoji表情应该怎么存</li>
+<li>电商平台里用户登录是怎么实现的(Token) 具体的流程？如果用户关掉了浏览器页面重新登录怎么办？</li>
+<li>用户发起一个http请求使用到了哪些协议</li>
+<li>你刚才讲的DNS协议能具体说一下吗（浏览器缓存 系统hosts DNS服务器递归查找）</li>
+<li>如果我访问页面 然后修改了系统hosts文件里对应的IP地址，那么刷新页面解析出来的IP地址会变吗</li>
+<li>你在linux系统上代码跑崩了怎么办？（IDE上调试） 如果代码已经打包发布不在IDE上调试 跑崩了怎么办</li>
+<li>电商平台里日志管理的作用？ 都存了什么日志内容？</li>
+<li>如果我现在有两个大文件，文件里存的都是网址，找出两个文件里相同的网址？分治的具体划分和实现流程？(哦豁)</li>
+<li>一大堆数据的TOPK （优先级队列） 优先级队列topK算法的具体实现？</li>
+<li>用过git吧？ git pull –request是什么意思？（发起pull request？）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>暑期实习面试-招行信用卡中心</title>
     <url>/2020/04/20/IntervieExp-Zhaoshang/</url>
     <content><![CDATA[<p>4.20 早1027-1044 14分钟</p>
 <a id="more"></a>
@@ -32,7 +106,7 @@
       </tags>
   </entry>
   <entry>
-    <title>OPPO的后台开发</title>
+    <title>暑期实习面试-OPPO的后台开发</title>
     <url>/2020/04/19/IntervieExp-OPPO/</url>
     <content><![CDATA[<p>4.19 晚1958-2012 14分钟</p>
 <a id="more"></a>
@@ -62,23 +136,11 @@
       </tags>
   </entry>
   <entry>
-    <title>腾讯面试(PCG研发部)</title>
+    <title>暑期实习面试-腾讯(PCG研发部)</title>
     <url>/2020/04/17/InterviewExp-TX/</url>
-    <content><![CDATA[<p>4.17 二面 午1430-1510 40分钟 PCG基础研究<br>1600官网记录变灰————提前批已挂 等一手正式批。</p>
+    <content><![CDATA[<p>赶在提前批结束前两周投的，看着同学一个个都面过了——而且出现了三个腾讯oc——心里也很焦急。DDL前两天被PCG的基础研究捞到，但是和部门要求不太合，当天官网记录就变灰了（流程开始到结束只用了六个小时 真有你的.jpg）。</p>
 <a id="more"></a>
-<p>（赖在床上看黑人抬棺 接到电话一咕噜爬起来 面试的时候脑子里都是Astronomia）</p>
-<ul>
-<li>自我介绍</li>
-<li>掰扯项目</li>
-<li>CPU缓存机制？GPU是否了解  （哦豁）</li>
-<li>给个题目：中国14亿人的手机坐标已知，找到相隔最远的两个坐标</li>
-<li>数学成绩如何</li>
-<li>C++的容器类底层实现？（转进到自己比较了解的java容器类）</li>
-<li>深度强化学习这一块的了解 （哦豁）</li>
-<li>自己相对于别人的优势？</li>
-</ul>
-<p>4.17 早1100-1200 1小时</p>
-<p>距离腾讯4.19DDL只剩两天。16号晚上意向城市从北京改到深圳，17号1000接到的电话。腾讯会议上面的。</p>
+<h2 id="4-17-早1100-1200-腾讯会议"><a href="#4-17-早1100-1200-腾讯会议" class="headerlink" title="4.17 早1100-1200 腾讯会议"></a>4.17 早1100-1200 腾讯会议</h2><p>距离腾讯4.19DDL只剩两天。16号晚上意向城市从北京改到深圳，17号1000接到的电话。腾讯会议上面的。</p>
 <ul>
 <li>没有自我介绍环节直接发题目</li>
 <li>64匹马，8条赛道，最少需要比多少次就可以选出最快的4匹马（计时和不计时）</li>
@@ -90,98 +152,43 @@
 <li>堆排序的流程？堆的特点？</li>
 <li>反问了一下 说是PCG研发部 现在在做的项目是神经网络的前向推理加速框架<br>主要用的还是C++</li>
 </ul>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>美团又一面的二面</title>
-    <url>/2020/04/16/InterviewExp-Meituan2/</url>
-    <content><![CDATA[<p>4.16 美团二面 50分钟</p>
-<a id="more"></a>
-<ol>
-<li>自我介绍</li>
-<li>掰扯项目（项目背景，目标，实现难点，怎么解决）</li>
-<li>平常用过什么数据结构(我有点想往map hashMap上引但是失败了)</li>
-<li>说到了栈，写一个用栈实现队列的算法(leetcode 225 Implement Queue using two stacks)</li>
-<li>二叉树的左右翻转 非递归版本 (leetcode 226 invert binary tree)</li>
-<li>如果有40亿个邮箱没有经过排序，现在给一个邮箱，判断在不在这40亿个邮箱里，用什么数据结构？<br>(说了分治+hash数组 B+树，问有没有更好的？有没有了解过位图) （哦豁）</li>
-<li>B+树和B树的区别</li>
-<li>唯一索引和主键索引的区别</li>
-<li>再写个题目 合并有序链表(leetcode 21 merge two sorted list)</li>
-<li>类加载过程的了解？ （哦豁）</li>
-<li>线程有哪些状态？ IO阻塞的时候转到blocked还是wait（只能说记不太清了）？</li>
-<li>wait和sleep的区别</li>
-<li>死锁的理解？死锁的四个条件总结一下</li>
-<li>GC算法？survivor区为什么有两个？用来解决什么问题？</li>
-<li>MySQL实现一个乐观锁？ (哦豁)</li>
-<li>10升水 3升桶和7升桶 量出5升水。</li>
-<li>最近在看的一本书是什么？</li>
-<li>说一个你的优缺点</li>
-</ol>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字节跳动的面试</title>
-    <url>/2020/04/15/IntervieExp-ByteDance/</url>
-    <content><![CDATA[<h3 id="4-14-一面-1小时"><a href="#4-14-一面-1小时" class="headerlink" title="4.14 一面 1小时"></a>4.14 一面 1小时</h3><p>自我介绍，掰扯项目</p>
+<h2 id="4-17-二面-午1430-1510"><a href="#4-17-二面-午1430-1510" class="headerlink" title="4.17 二面 午1430-1510"></a>4.17 二面 午1430-1510</h2><p>1600官网记录变灰————提前批已挂 等一手正式批。</p>
+<p>（赖在床上看黑人抬棺 接到电话一咕噜爬起来 面试的时候脑子里都是Astronomia）</p>
 <ul>
-<li>leetcode 19 删除链表的倒数第N个节点</li>
-<li>leetcode 121 股票买卖问题</li>
-<li>leetcode 20 有效括号</li>
+<li>自我介绍</li>
+<li>掰扯项目</li>
+<li>CPU缓存机制？GPU是否了解  （哦豁）</li>
+<li>给个题目：中国14亿人的手机坐标已知，找到相隔最远的两个坐标</li>
+<li>数学成绩如何</li>
+<li>C++的容器类底层实现？（转进到自己比较了解的java容器类）</li>
+<li>深度强化学习这一块的了解 （哦豁）</li>
+<li>自己相对于别人的优势？</li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>暑期实习面试-字节跳动</title>
+    <url>/2020/04/15/IntervieExp-ByteDance/</url>
+    <content><![CDATA[<p>字节的工作效率是真滴很快。我刚刚上传简历还没有投递出去就被DATA的HR加了微信，一面过了之后五分钟发消息过来约二面时间。整体上疯狂做题（而且题目并不难），一面很顺利，但是二面数据库那题做错，后面两题都有一点bug，自己也觉得不行，过了一个周末收到了感谢信。</p>
+<a id="more"></a>
+<h3 id="4-14-一面-1小时"><a href="#4-14-一面-1小时" class="headerlink" title="4.14 一面 1小时"></a>4.14 一面 1小时</h3><p>自我介绍，掰扯项目</p>
+<ul>
+<li><strong>代码：</strong> leetcode 19 删除链表的倒数第N个节点</li>
+<li><strong>代码：</strong> leetcode 121 股票买卖问题</li>
+<li><strong>代码：</strong> leetcode 20 有效括号</li>
 </ul>
 <h3 id="4-15-二面-45分钟"><a href="#4-15-二面-45分钟" class="headerlink" title="4.15 二面 45分钟"></a>4.15 二面 45分钟</h3><p>自我介绍 随便聊了一下</p>
 <ul>
-<li>查询多个科目平均成绩大于60分的同学的姓名以及平均成绩（设计表及对应的查询SQL语句）</li>
-<li>求和 数组 [1, 6, 5, 2, 7, 9, 3]  两数字之和 结果是8的所有组合</li>
-<li>实现开根号函数</li>
-</ul>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>美团又一面</title>
-    <url>/2020/04/13/InterviewExp-Meituan1/</url>
-    <content><![CDATA[<p>4.13 1500-1600 1小时</p>
-<a id="more"></a>
-<p>台式机的麦克风蜜汁出问题 调了十分钟也没好 后面电话交流看屏幕完成面试</p>
-<ul>
-<li>自我介绍</li>
-<li>（介绍里提到了SDN）SDN的理解？数据面和控制面？然后掰扯实验室项目</li>
-<li>sql注入的理解</li>
-<li>写sql 给student{id, name}和score{id, score, sid}表，假设score不重复，查最高分数的学生名字和分数。</li>
-<li>要优化这个查询怎么加索引</li>
-<li>写sql结果。左连接和右连接。</li>
-<li>Spring的优点 IOC AOP的理解 Spring里使用了什么设计模式 </li>
-<li>Bean的定义 怎么注入</li>
-<li>MyBatis里怎么传参数，$和#有什么区别</li>
-<li>java内存模型</li>
-<li>堆分几块空间 为什么有两个survivor</li>
-<li>垃圾回收算法的了解 java里用的GC算法</li>
-<li>java的抽象类和接口，抽象类是否可以有构造方法，抽象类的方法是否可以都实现了</li>
-<li>实现一个线程有几种方式？ volatile的理解</li>
-<li>写 二叉树前中后序遍历</li>
-<li>哪种数据适合冒泡排序 哪种适合快速排序</li>
-<li>redis基本数据类型 </li>
-<li>消息队列的理解</li>
+<li><strong>代码：</strong> 查询多个科目平均成绩大于60分的同学的姓名以及平均成绩（设计表及对应的查询SQL语句）</li>
+<li><strong>代码：</strong> 求和 数组 [1, 6, 5, 2, 7, 9, 3]  两数字之和 结果是8的所有组合</li>
+<li><strong>代码：</strong> 实现开根号函数</li>
 </ul>
 ]]></content>
       <categories>
@@ -372,10 +379,12 @@
       </tags>
   </entry>
   <entry>
-    <title>美团一面</title>
+    <title>暑期实习面试-美团</title>
     <url>/2020/04/08/InterviewExp-meituan/</url>
-    <content><![CDATA[<p>4.8 25分钟，基本凉了。</p>
+    <content><![CDATA[<p>美团面了第一次应该没过，之后被lbs的大交通业务部捞了一手面了两面，在4.26做完腾讯正式批笔试之后突然收到了oc，上岸的感觉是真滴好。</p>
 <a id="more"></a>
+
+<h2 id="4-8-1500-牛客网视频面试"><a href="#4-8-1500-牛客网视频面试" class="headerlink" title="4.8 1500 牛客网视频面试"></a>4.8 1500 牛客网视频面试</h2><p>第一次面试超紧张，25分钟凉。不过也有了一些底，大概摸清楚了面试官会分成哪几块去提问，然后就开始针对性地去看相关内容。</p>
 <ul>
 <li>自我介绍 </li>
 <li>掰扯一下实验室项目 问这个的应用场景 </li>
@@ -393,6 +402,47 @@
 <li>常用的集合类？ </li>
 <li>TreeMap和HashMap哪个的插入效率高？(emmm还答错了) </li>
 </ul>
+<h2 id="4-13-1500-1600-1小时"><a href="#4-13-1500-1600-1小时" class="headerlink" title="4.13 1500-1600 1小时"></a>4.13 1500-1600 1小时</h2><p>台式机的麦克风蜜汁出问题 调了十分钟也没好 面试官很和善，提议打电话交流，看屏幕完成面试。</p>
+<ul>
+<li>自我介绍</li>
+<li>（介绍里提到了SDN）SDN的理解？数据面和控制面？然后掰扯实验室项目</li>
+<li>sql注入的理解</li>
+<li>写sql 给student{id, name}和score{id, score, sid}表，假设score不重复，查最高分数的学生名字和分数。</li>
+<li>要优化这个查询怎么加索引</li>
+<li>写sql结果。左连接和右连接。</li>
+<li>Spring的优点 IOC AOP的理解 Spring里使用了什么设计模式 </li>
+<li>Bean的定义 怎么注入</li>
+<li>MyBatis里怎么传参数，$和#有什么区别</li>
+<li>java内存模型</li>
+<li>堆分几块空间 为什么有两个survivor</li>
+<li>垃圾回收算法的了解 java里用的GC算法</li>
+<li>java的抽象类和接口，抽象类是否可以有构造方法，抽象类的方法是否可以都实现了</li>
+<li>实现一个线程有几种方式？ volatile的理解</li>
+<li>给一个二叉树结构 直接写出二叉树前中后序遍历结果</li>
+<li>哪种数据适合冒泡排序 哪种适合快速排序</li>
+<li>redis基本数据类型 </li>
+<li>消息队列的理解</li>
+</ul>
+<h2 id="4-16-1400-1450-美团二面-50分钟"><a href="#4-16-1400-1450-美团二面-50分钟" class="headerlink" title="4.16 1400-1450 美团二面 50分钟"></a>4.16 1400-1450 美团二面 50分钟</h2><ol>
+<li>自我介绍</li>
+<li>掰扯项目（项目背景，目标，实现难点，怎么解决）</li>
+<li>平常用过什么数据结构(我有点想往map hashMap上引但是失败了)</li>
+<li><strong>代码：</strong> 说到了栈，写一个用栈实现队列的算法(leetcode 225 Implement Queue using two stacks)</li>
+<li><strong>代码：</strong> 二叉树的左右翻转 非递归版本 (leetcode 226 invert binary tree)</li>
+<li>如果有40亿个邮箱没有经过排序，现在给一个邮箱，判断在不在这40亿个邮箱里，用什么数据结构？<br>(说了分治+hash数组 B+树，问有没有更好的？有没有了解过位图) （哦豁）</li>
+<li>B+树和B树的区别</li>
+<li>唯一索引和主键索引的区别</li>
+<li><strong>代码：</strong> 再写个题目 合并有序链表(leetcode 21 merge two sorted list)</li>
+<li>类加载过程的了解？ （哦豁）</li>
+<li>线程有哪些状态？ IO阻塞的时候转到blocked还是wait（只能说记不太清了）</li>
+<li>wait和sleep的区别</li>
+<li>死锁的理解？死锁的四个条件总结一下</li>
+<li>GC算法？survivor区为什么有两个？用来解决什么问题？</li>
+<li>MySQL实现一个乐观锁？ (哦豁)</li>
+<li>10升水 3升桶和7升桶 量出5升水。</li>
+<li>最近在看的一本书是什么？</li>
+<li>说一个你的优缺点</li>
+</ol>
 ]]></content>
       <categories>
         <category>面试</category>
@@ -919,8 +969,8 @@
         <category>helloworld</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>helloworld</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
